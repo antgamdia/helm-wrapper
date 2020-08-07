@@ -268,7 +268,7 @@ func installRelease(c *gin.Context) {
 	}
 
 	var options releaseOptions
-	err := c.BindJSON(&options)
+	err := c.ShouldBindJSON(&options)
 	if err != nil && err != io.EOF {
 		respErr(c, err)
 		return
@@ -414,7 +414,7 @@ func upgradeRelease(c *gin.Context) {
 	}
 
 	var options releaseOptions
-	err := c.BindJSON(&options)
+	err := c.ShouldBindJSON(&options)
 	if err != nil && err != io.EOF {
 		respErr(c, err)
 		return
@@ -485,7 +485,7 @@ func listReleases(c *gin.Context) {
 	}
 
 	var options releaseListOptions
-	err = c.BindJSON(&options)
+	err = c.ShouldBindJSON(&options)
 	if err != nil && err != io.EOF {
 		respErr(c, err)
 		return
@@ -523,7 +523,7 @@ func listReleases(c *gin.Context) {
 	}
 
 	// Initialize the array so no results returns an empty array instead of null
-	elements := make([]releaseElement, 0, len(results))
+	elements := make(releaseList, 0, len(results))
 	for _, r := range results {
 		elements = append(elements, constructReleaseElement(r, false))
 	}
