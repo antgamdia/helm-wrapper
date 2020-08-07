@@ -12,6 +12,7 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/golang/glog"
 	"github.com/spf13/pflag"
@@ -86,6 +87,8 @@ func main() {
 
 	// router
 	router := gin.Default()
+	router.Use(cors.Default())
+
 	router.GET("/", func(c *gin.Context) {
 		c.String(http.StatusOK, "Welcom helm wrapper server")
 	})
