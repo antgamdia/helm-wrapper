@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helm-wrapper-deploy
+  namespace: default
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: nginx
+      env: staging
+  template:
+    metadata:
+      labels:
+        app: nginx
+        env: staging
+      namespace: default
+    spec:
+      containers:
+      - image: antgamdia/helm-wrapper:1be6d76
+        imagePullPolicy: IfNotPresent
+        name: helm-wrapper
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 0

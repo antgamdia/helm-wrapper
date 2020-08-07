@@ -1,8 +1,23 @@
-FROM alpine:3.12
+FROM bitnami/golang as builder
 
-ENV GIN_MODE=release
+WORKDIR /go/src/github.com/antgamdia/helm-wrapper
 
-COPY config-example.yaml /config.yaml
-COPY helm-wrapper /helm-wrapper
+COPY go.mod go.sum ./
+COPY cmd cmd
+COPY web web
+COPY api api
 
-CMD [ "/helm-wrapper" ]
+RUN CGO_ENABLED=0 go build -installsuffix cgo -ldflags "-s -w" ./cmd/helm-wrapper
+
+
+FROM scratch
+
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+COPY --from=builder /go/src/github.com/antgamdia/helm-wrapper/helm-wrapper /helm-wrapper
+COPY --from=builder /go/src/github.com/antgamdia/helm-wrapper/web /web
+COPY --from=builder /go/src/github.com/antgamdia/helm-wrapper/api /api
+COPY ./configs/config-example.yaml ./config.yaml
+
+EXPOSE 8080
+
+CMD ["/helm-wrapper"]

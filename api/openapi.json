@@ -345,8 +345,8 @@
       },
       "/namespaces/{namespace}/releases/{release}/versions/{reversion}": {
         "put": {
-          "summary": "",
-          "description": "",
+          "summary": "helm rollback",
+          "description": "helm rollback",
           "parameters": [
             {
               "name": "namespace",
@@ -396,8 +396,8 @@
       },
       "/namespaces/{namespace}/releases/{release}/status": {
         "get": {
-          "summary": "",
-          "description": "",
+          "summary": "helm status",
+          "description": "helm status",
           "parameters": [
             {
               "name": "namespace",

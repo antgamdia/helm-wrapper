@@ -1,11 +1,7 @@
 .git
 .gitignore
-.goreleaser.yml
 .dockerignore
-.drone.yml
 Dockerfile
 docker-compose.yml
-*.go
 Makefile
-go.*
 README.*
