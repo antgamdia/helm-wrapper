@@ -18,7 +18,7 @@ spec:
       namespace: default
     spec:
       containers:
-      - image: antgamdia/helm-wrapper:1be6d76
+      - image: helm-wrapper
         imagePullPolicy: IfNotPresent
         name: helm-wrapper
         ports:

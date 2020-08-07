@@ -11,7 +11,7 @@ This is a personal fork of the [original helm-wrapper](https://github.com/opskum
 
 ## The API
 
-A comprehensive OpenAPI description of the API is available at  [/api/openapi.json]([/api/openapi.json).
+A comprehensive OpenAPI description of the API is available at  [/api/openapi.json](/api/openapi.json).
 Besides, a markdown documentation is available at [/docs/README.md](/docs/README.md).
 
 ### Methods
