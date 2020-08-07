@@ -89,8 +89,11 @@ func main() {
 	router := gin.Default()
 	router.Use(cors.Default())
 
+	router.Static("/docs", "./docs")
+	router.Static("/api/docs", "./docs")
+
 	router.GET("/", func(c *gin.Context) {
-		c.String(http.StatusOK, "Welcom helm wrapper server")
+		c.String(http.StatusOK, "Welcome to helm wrapper RESTful API. Go to /docs to see the API documentation.")
 	})
 
 	// register router
