@@ -1,891 +1,900 @@
 {
-    "openapi": "3.0.0",
-    "servers": [
-      {
-        "url": "http://localhost:8080/api",
-        "variables": {
-        }
+  "openapi": "3.0.0",
+  "servers": [
+    {
+      "url": "http://localhost:8080/api",
+      "variables": {
       }
-    ],
-    "info": {
-      "description": "Helm-wrapper RESTful API by opskumu.",
-      "version": "1.0.0",
-      "title": "Helm-wrapper RESTful API",
-      "license": {
-        "name": "Apache 2.0",
-        "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
-      },
-      "contact": {
-      }
+    }
+  ],
+  "info": {
+    "description": "Helm-wrapper RESTful API by opskumu.",
+    "version": "1.0.0",
+    "title": "Helm-wrapper RESTful API",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "tags": [
-      {
-        "name": "releases"
-      },
-      {
-        "name": "charts"
-      },
-      {
-        "name": "repositories"
-      },
-      {
-        "name": "upload"
-      },
-      {
-        "name": "envs"
-      }
-    ],
-    "paths": {
-      "/envs": {
-        "get": {
-          "summary": "helm env",
-          "description": "helm env",
-          "parameters": [
-  
-          ],
-          "operationId": "getHelmEnvs",
-          "responses": {
-            "default": {
-              "description": "Default response",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/ResponseBody"
-                  }
-                }
-              }
-            }
-          },
-          "tags": [
-            "envs"
-          ]
-        }
-      },
-      "/repositories/charts": {
-        "get": {
-          "summary": "helm search repo",
-          "description": "helm search repo",
-          "parameters": [
-            {
-              "name": "keyword",
-              "in": "query",
-              "required": true,
-              "schema": {
-                "type": "string"
-              },
-              "description": "Keyword to search"
-            },
-            {
-              "name": "version",
-              "in": "query",
-              "required": false,
-              "schema": {
-                "type": "string"
-              },
-              "description": "Chart version"
-            },
-            {
-              "name": "versions",
-              "in": "query",
-              "required": false,
-              "schema": {
-                "type": "boolean"
-              },
-              "description": "If true, all versions"
-            }
-          ],
-          "operationId": "listRepoCharts",
-          "responses": {
-            "default": {
-              "description": "Default response",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/ResponseBody"
-                  }
-                }
-              }
-            }
-          },
-          "tags": [
-            "repositories"
-          ]
-        }
-      },
-      "/repositories": {
-        "put": {
-          "summary": "helm repo update",
-          "description": "helm repo update",
-          "parameters": [
-  
-          ],
-          "operationId": "updateRepositories",
-          "responses": {
-            "default": {
-              "description": "Default response",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/ResponseBody"
-                  }
-                }
-              }
-            }
-          },
-          "tags": [
-            "repositories"
-          ]
-        }
-      },
-      "/charts": {
-        "get": {
-          "summary": "helm show",
-          "description": "helm show",
-          "parameters": [
-            {
-              "name": "chart",
-              "in": "query",
-              "required": true,
-              "schema": {
-                "type": "string"
-              },
-              "description": "Chart name"
-            },
-            {
-              "name": "info",
-              "in": "query",
-              "required": false,
-              "schema": {
-                "type": "string",
-                "enum": [
-                  "readme",
-                  "values",
-                  "chart"
-                ]
-              },
-              "description": "Info to display"
-            },
-            {
-              "name": "version",
-              "in": "query",
-              "required": false,
-              "schema": {
-                "type": "string"
-              },
-              "description": "--version"
-            }
-          ],
-          "operationId": "showChartInfo",
-          "responses": {
-            "default": {
-              "description": "Default response",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/ResponseBody"
-                  }
-                }
-              }
-            }
-          },
-          "tags": [
-            "charts"
-          ]
-        }
-      },
-      "/namespaces/{namespace}/releases": {
-        "get": {
-          "summary": "helm list",
-          "description": "helm list",
-          "parameters": [
-            {
-              "name": "namespace",
-              "in": "path",
-              "required": true,
-              "schema": {
-                "type": "string"
-              },
-              "description": "Namespace name"
-            },
-            {
-              "name": "all",
-              "in": "query",
-              "required": false,
-              "schema": {
-                "type": "string"
-              },
-              "description": "--all"
-            },
-            {
-              "name": "all_namespaces",
-              "in": "query",
-              "required": false,
-              "schema": {
-                "type": "string"
-              },
-              "description": "--all-namespaces"
-            },
-            {
-              "name": "by_date",
-              "in": "query",
-              "required": false,
-              "schema": {
-                "type": "string"
-              },
-              "description": "--date"
-            },
-            {
-              "name": "sort_reverse",
-              "in": "query",
-              "required": false,
-              "schema": {
-                "type": "string"
-              },
-              "description": "--reverse"
-            },
-            {
-              "name": "limit",
-              "in": "query",
-              "required": false,
-              "schema": {
-                "type": "string"
-              },
-              "description": "--max"
-            },
-            {
-              "name": "offset",
-              "in": "query",
-              "required": false,
-              "schema": {
-                "type": "string"
-              },
-              "description": "--offset"
-            },
-            {
-              "name": "filter",
-              "in": "query",
-              "required": false,
-              "schema": {
-                "type": "string"
-              },
-              "description": "--filter"
-            },
-            {
-              "name": "uninstalled",
-              "in": "query",
-              "required": false,
-              "schema": {
-                "type": "string"
-              },
-              "description": "--uninstalled"
-            },
-            {
-              "name": "uninstalling",
-              "in": "query",
-              "required": false,
-              "schema": {
-                "type": "string"
-              },
-              "description": "--uninstalling"
-            },
-            {
-              "name": "superseded",
-              "in": "query",
-              "required": false,
-              "schema": {
-                "type": "string"
-              },
-              "description": "--superseded"
-            },
-            {
-              "name": "failed",
-              "in": "query",
-              "required": false,
-              "schema": {
-                "type": "string"
-              },
-              "description": "--failed"
-            },
-            {
-              "name": "deployed",
-              "in": "query",
-              "required": false,
-              "schema": {
-                "type": "string"
-              },
-              "description": "--deployed"
-            },
-            {
-              "name": "pending",
-              "in": "query",
-              "required": false,
-              "schema": {
-                "type": "string"
-              },
-              "description": "--pending"
-            }
-          ],
-          "operationId": "listReleases",
-          "responses": {
-            "default": {
-              "description": "Default response",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/ResponseBody"
-                  }
-                }
-              }
-            }
-          },
-          "tags": [
-            "releases"
-          ]
-        }
-      },
-      "/namespaces/{namespace}/releases/{release}/versions/{reversion}": {
-        "put": {
-          "summary": "helm rollback",
-          "description": "helm rollback",
-          "parameters": [
-            {
-              "name": "namespace",
-              "in": "path",
-              "required": true,
-              "schema": {
-                "type": "string"
-              },
-              "description": "Namespace name"
-            },
-            {
-              "name": "release",
-              "in": "path",
-              "required": true,
-              "schema": {
-                "type": "string"
-              },
-              "description": "Release name"
-            },
-            {
-              "name": "reversion",
-              "in": "path",
-              "required": true,
-              "schema": {
-                "type": "string"
-              },
-              "description": "Reversion name"
-            }
-          ],
-          "operationId": "rollbackRelease",
-          "responses": {
-            "default": {
-              "description": "Default response",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/ResponseBody"
-                  }
-                }
-              }
-            }
-          },
-          "tags": [
-            "releases"
-          ]
-        }
-      },
-      "/namespaces/{namespace}/releases/{release}/status": {
-        "get": {
-          "summary": "helm status",
-          "description": "helm status",
-          "parameters": [
-            {
-              "name": "namespace",
-              "in": "path",
-              "required": true,
-              "schema": {
-                "type": "string"
-              },
-              "description": "Namespace name"
-            },
-            {
-              "name": "release",
-              "in": "path",
-              "required": true,
-              "schema": {
-                "type": "string"
-              },
-              "description": "Release name"
-            }
-          ],
-          "operationId": "getReleaseStatus",
-          "responses": {
-            "default": {
-              "description": "Default response",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/ResponseBody"
-                  }
-                }
-              }
-            }
-          },
-          "tags": [
-            "releases"
-          ]
-        }
-      },
-      "/namespaces/{namespace}/releases/{release}/histories": {
-        "get": {
-          "summary": "helm release history",
-          "description": "helm release history",
-          "parameters": [
-            {
-              "name": "namespace",
-              "in": "path",
-              "required": true,
-              "schema": {
-                "type": "string"
-              },
-              "description": "Namespace name"
-            },
-            {
-              "name": "release",
-              "in": "path",
-              "required": true,
-              "schema": {
-                "type": "string"
-              },
-              "description": "Release name"
-            }
-          ],
-          "operationId": "listReleaseHistories",
-          "responses": {
-            "default": {
-              "description": "Default response",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/ResponseBody"
-                  }
-                }
-              }
-            }
-          },
-          "tags": [
-            "releases"
-          ]
-        }
-      },
-      "/charts/upload": {
-        "get": {
-          "summary": "list local charts",
-          "description": "list local charts",
-          "parameters": [
-  
-          ],
-          "operationId": "listUploadedCharts",
-          "responses": {
-            "default": {
-              "description": "Default response",
-              "content": {
-                "application/json": {
-                  "schema": {
-                  }
-                }
-              }
-            }
-          },
-          "tags": [
-            "upload"
-          ]
-        },
-        "post": {
-          "summary": "upload chart",
-          "description": "upload chart",
-          "parameters": [
-            {
-              "name": "chart",
-              "in": "query",
-              "required": true,
-              "schema": {
-                "type": "string"
-              },
-              "description": "upload chart file, with suffix .tgz"
-            }
-          ],
-          "operationId": "upload",
-          "responses": {
-            "default": {
-              "description": "Default response",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/ResponseBody"
-                  }
-                }
-              }
-            }
-          },
-          "tags": [
-            "upload"
-          ]
-        }
-      },
-      "/namespaces/{namespace}/releases/{release}": {
-        "get": {
-          "summary": "helm get",
-          "description": "helm get",
-          "parameters": [
-            {
-              "name": "namespace",
-              "in": "path",
-              "required": true,
-              "schema": {
-                "type": "string"
-              },
-              "description": "Namespace name"
-            },
-            {
-              "name": "release",
-              "in": "path",
-              "required": true,
-              "schema": {
-                "type": "string"
-              },
-              "description": "Release name"
-            },
-            {
-              "name": "info",
-              "in": "query",
-              "required": true,
-              "schema": {
-                "type": "string",
-                "enum": [
-                  "all",
-                  "hooks",
-                  "manifest",
-                  "notes",
-                  "values"
-                ]
-              },
-              "description": "Info to display"
-            }
-          ],
-          "operationId": "showReleaseInfo",
-          "responses": {
-            "default": {
-              "description": "Default response",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/ResponseBody"
-                  }
-                }
-              }
-            }
-          },
-          "tags": [
-            "releases"
-          ]
-        },
-        "post": {
-          "summary": "helm install",
-          "description": "helm install",
-          "parameters": [
-            {
-              "name": "namespace",
-              "in": "path",
-              "required": true,
-              "schema": {
-                "type": "string"
-              },
-              "description": "Namespace name"
-            },
-            {
-              "name": "release",
-              "in": "path",
-              "required": true,
-              "schema": {
-                "type": "string"
-              },
-              "description": "Release name"
-            },
-            {
-              "name": "chart",
-              "in": "query",
-              "required": false,
-              "schema": {
-                "type": "string"
-              },
-              "description": "Chart name"
-            }
-          ],
-          "operationId": "installRelease",
-          "requestBody": {
-            "description": "Helm install request body",
-            "required": true,
+    "contact": {
+    }
+  },
+  "tags": [
+    {
+      "name": "releases"
+    },
+    {
+      "name": "charts"
+    },
+    {
+      "name": "repositories"
+    },
+    {
+      "name": "upload"
+    },
+    {
+      "name": "envs"
+    }
+  ],
+  "paths": {
+    "/envs": {
+      "get": {
+        "summary": "helm env",
+        "description": "helm env",
+        "parameters": [
+
+        ],
+        "operationId": "getHelmEnvs",
+        "responses": {
+          "default": {
+            "description": "Default response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/InstallReleaseBody"
-                }
-              }
-            }
-          },
-          "responses": {
-            "default": {
-              "description": "Default response",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/ResponseBody"
-                  }
+                  "$ref": "#/components/schemas/ResponseBody"
                 }
               }
             }
           }
         },
-        "put": {
-          "summary": "helm upgrade",
-          "description": "helm upgrade",
-          "parameters": [
-            {
-              "name": "namespace",
-              "in": "path",
-              "required": true,
-              "schema": {
-                "type": "string"
-              },
-              "description": "Namespace name"
-            },
-            {
-              "name": "release",
-              "in": "path",
-              "required": true,
-              "schema": {
-                "type": "string"
-              },
-              "description": "Release name"
-            }
-          ],
-          "operationId": "upgradeRelease",
-          "requestBody": {
-            "description": "Helm upgrade request body",
+        "tags": [
+          "envs"
+        ]
+      }
+    },
+    "/repositories/charts": {
+      "get": {
+        "summary": "helm search repo",
+        "description": "helm search repo",
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "query",
             "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Keyword to search"
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Chart version"
+          },
+          {
+            "name": "versions",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "If true, all versions"
+          }
+        ],
+        "operationId": "listRepoCharts",
+        "responses": {
+          "default": {
+            "description": "Default response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UpgradeReleaseBody"
-                }
-              }
-            }
-          },
-          "responses": {
-            "default": {
-              "description": "Default response",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/ResponseBody"
-                  }
+                  "$ref": "#/components/schemas/ResponseBody"
                 }
               }
             }
           }
         },
-        "delete": {
-          "summary": "helm uninstall",
-          "description": "helm uninstall",
-          "parameters": [
-            {
-              "name": "namespace",
-              "in": "path",
-              "required": true,
-              "schema": {
-                "type": "string"
-              },
-              "description": "Namespace name"
-            },
-            {
-              "name": "release",
-              "in": "path",
-              "required": true,
-              "schema": {
-                "type": "string"
-              },
-              "description": "Release name"
-            }
-          ],
-          "operationId": "uninstallRelease",
-          "responses": {
-            "default": {
-              "description": "Default response",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/ResponseBody"
-                  }
-                }
-              }
-            }
-          }
-        }
+        "tags": [
+          "repositories"
+        ]
       }
     },
-    "security": [
-  
-    ],
-    "components": {
-      "links": {
-      },
-      "callbacks": {
-      },
-      "schemas": {
-        "InstallReleaseBody": {
-          "type": "object",
-          "properties": {
-            "dry_run": {
-              "description": "--dry-run",
-              "type": "string"
-            },
-            "disable_hooks": {
-              "description": "--no-hooks",
-              "type": "string"
-            },
-            "wait": {
-              "description": "--wait",
-              "type": "string"
-            },
-            "devel": {
-              "description": "--false",
-              "type": "string"
-            },
-            "description": {
-              "description": "--description",
-              "type": "string"
-            },
-            "atomic": {
-              "description": "--atomic",
-              "type": "string"
-            },
-            "skip_crds": {
-              "description": "--skip-crds",
-              "type": "string"
-            },
-            "sub_notes": {
-              "description": "--render-subchart-notes",
-              "type": "string"
-            },
-            "create_namespace": {
-              "description": "--create-namespace",
-              "type": "string"
-            },
-            "dependency_update": {
-              "description": "--dependency-update",
-              "type": "string"
-            },
-            "values": {
-              "description": "--values",
-              "type": "string"
-            },
-            "set": {
-              "description": "--set",
-              "type": "string"
-            },
-            "set_string": {
-              "description": "--set-string",
-              "type": "string"
+    "/repositories": {
+      "put": {
+        "summary": "helm repo update",
+        "description": "helm repo update",
+        "parameters": [
+
+        ],
+        "operationId": "updateRepositories",
+        "responses": {
+          "default": {
+            "description": "Default response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBody"
+                }
+              }
             }
           }
         },
-        "UpgradeReleaseBody": {
-          "type": "object",
-          "properties": {
-            "dry_run": {
-              "description": "--dry-run",
+        "tags": [
+          "repositories"
+        ]
+      }
+    },
+    "/charts": {
+      "get": {
+        "summary": "helm show",
+        "description": "helm show",
+        "parameters": [
+          {
+            "name": "chart",
+            "in": "query",
+            "required": true,
+            "schema": {
               "type": "string"
             },
-            "disable_hooks": {
-              "description": "--no-hooks",
-              "type": "string"
-            },
-            "wait": {
-              "description": "--wait",
-              "type": "string"
-            },
-            "devel": {
-              "description": "--false",
-              "type": "string"
-            },
-            "description": {
-              "description": "--description",
-              "type": "string"
-            },
-            "atomic": {
-              "description": "--atomic",
-              "type": "string"
-            },
-            "skip_crds": {
-              "description": "--skip-crds",
-              "type": "string"
-            },
-            "sub_notes": {
-              "description": "--render-subchart-notes",
-              "type": "string"
-            },
-            "force": {
-              "description": "--force",
-              "type": "string"
-            },
-            "install": {
-              "description": "--install",
-              "type": "string"
-            },
-            "recreate": {
-              "description": "--recreate",
-              "type": "string"
-            },
-            "cleanup_on_fail": {
-              "description": "--cleanup-on-fail",
-              "type": "string"
-            },
-            "values": {
-              "description": "--values",
-              "type": "string"
-            },
-            "set": {
-              "description": "--set",
-              "type": "string"
-            },
-            "set_string": {
-              "description": "--set-string",
-              "type": "string"
-            }
-          }
-        },
-        "ResponseBody": {
-          "type": "object",
-          "properties": {
-            "code": {
-              "description": "0 is ok, 1 is error",
-              "type": "number",
+            "description": "Chart name"
+          },
+          {
+            "name": "info",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
               "enum": [
-                0,
-                1
+                "readme",
+                "values",
+                "chart"
               ]
             },
-            "data": {
-              "description": "data",
-              "type": "object"
-            },
-            "error": {
-              "description": "error",
+            "description": "Info to display"
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
               "type": "string"
+            },
+            "description": "--version"
+          }
+        ],
+        "operationId": "showChartInfo",
+        "responses": {
+          "default": {
+            "description": "Default response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBody"
+                }
+              }
             }
+          }
+        },
+        "tags": [
+          "charts"
+        ]
+      }
+    },
+    "/namespaces/{namespace}/releases": {
+      "get": {
+        "summary": "helm list",
+        "description": "helm list",
+        "parameters": [
+          {
+            "name": "namespace",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Namespace name"
+          },
+          {
+            "name": "all",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "--all"
+          },
+          {
+            "name": "all_namespaces",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "--all-namespaces"
+          },
+          {
+            "name": "by_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "--date"
+          },
+          {
+            "name": "sort_reverse",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "--reverse"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "--max"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "--offset"
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "--filter"
+          },
+          {
+            "name": "uninstalled",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "--uninstalled"
+          },
+          {
+            "name": "uninstalling",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "--uninstalling"
+          },
+          {
+            "name": "superseded",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "--superseded"
+          },
+          {
+            "name": "failed",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "--failed"
+          },
+          {
+            "name": "deployed",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "--deployed"
+          },
+          {
+            "name": "pending",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "--pending"
+          }
+        ],
+        "operationId": "listReleases",
+        "responses": {
+          "default": {
+            "description": "Default response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBody"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "releases"
+        ]
+      }
+    },
+    "/namespaces/{namespace}/releases/{release}/versions/{reversion}": {
+      "put": {
+        "summary": "helm rollback",
+        "description": "helm rollback",
+        "parameters": [
+          {
+            "name": "namespace",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Namespace name"
+          },
+          {
+            "name": "release",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Release name"
+          },
+          {
+            "name": "reversion",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Reversion name"
+          }
+        ],
+        "operationId": "rollbackRelease",
+        "responses": {
+          "default": {
+            "description": "Default response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBody"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "releases"
+        ]
+      }
+    },
+    "/namespaces/{namespace}/releases/{release}/status": {
+      "get": {
+        "summary": "helm status",
+        "description": "helm status",
+        "parameters": [
+          {
+            "name": "namespace",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Namespace name"
+          },
+          {
+            "name": "release",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Release name"
+          }
+        ],
+        "operationId": "getReleaseStatus",
+        "responses": {
+          "default": {
+            "description": "Default response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBody"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "releases"
+        ]
+      }
+    },
+    "/namespaces/{namespace}/releases/{release}/histories": {
+      "get": {
+        "summary": "helm release history",
+        "description": "helm release history",
+        "parameters": [
+          {
+            "name": "namespace",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Namespace name"
+          },
+          {
+            "name": "release",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Release name"
+          }
+        ],
+        "operationId": "listReleaseHistories",
+        "responses": {
+          "default": {
+            "description": "Default response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBody"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "releases"
+        ]
+      }
+    },
+    "/charts/upload": {
+      "get": {
+        "summary": "list local charts",
+        "description": "list local charts",
+        "parameters": [
+
+        ],
+        "operationId": "listUploadedCharts",
+        "responses": {
+          "default": {
+            "description": "Default response",
+            "content": {
+              "application/json": {
+                "schema": {
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "upload"
+        ]
+      },
+      "post": {
+        "summary": "upload chart",
+        "description": "upload chart",
+        "parameters": [
+          {
+            "name": "chart",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "upload chart file, with suffix .tgz"
+          }
+        ],
+        "operationId": "upload",
+        "responses": {
+          "default": {
+            "description": "Default response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBody"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "upload"
+        ]
+      }
+    },
+    "/namespaces/{namespace}/releases/{release}": {
+      "get": {
+        "summary": "helm get",
+        "description": "helm get",
+        "parameters": [
+          {
+            "name": "namespace",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Namespace name"
+          },
+          {
+            "name": "release",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Release name"
+          },
+          {
+            "name": "info",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "all",
+                "hooks",
+                "manifest",
+                "notes",
+                "values"
+              ]
+            },
+            "description": "Info to display"
+          }
+        ],
+        "operationId": "showReleaseInfo",
+        "responses": {
+          "default": {
+            "description": "Default response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBody"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "releases"
+        ]
+      },
+      "post": {
+        "summary": "helm install",
+        "description": "helm install",
+        "parameters": [
+          {
+            "name": "namespace",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Namespace name"
+          },
+          {
+            "name": "release",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Release name"
+          },
+          {
+            "name": "chart",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Chart name"
+          }
+        ],
+        "operationId": "installRelease",
+        "requestBody": {
+          "description": "Helm install request body",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InstallReleaseBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "Default response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBody"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "releases"
+        ]
+      },
+      "put": {
+        "summary": "helm upgrade",
+        "description": "helm upgrade",
+        "parameters": [
+          {
+            "name": "namespace",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Namespace name"
+          },
+          {
+            "name": "release",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Release name"
+          }
+        ],
+        "operationId": "upgradeRelease",
+        "requestBody": {
+          "description": "Helm upgrade request body",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpgradeReleaseBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "Default response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBody"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "releases"
+        ]
+      },
+      "delete": {
+        "summary": "helm uninstall",
+        "description": "helm uninstall",
+        "parameters": [
+          {
+            "name": "namespace",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Namespace name"
+          },
+          {
+            "name": "release",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Release name"
+          }
+        ],
+        "operationId": "uninstallRelease",
+        "responses": {
+          "default": {
+            "description": "Default response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseBody"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "releases"
+        ]
+      }
+    }
+  },
+  "security": [
+
+  ],
+  "components": {
+    "links": {
+    },
+    "callbacks": {
+    },
+    "schemas": {
+      "InstallReleaseBody": {
+        "type": "object",
+        "properties": {
+          "dry_run": {
+            "description": "--dry-run",
+            "type": "string"
+          },
+          "disable_hooks": {
+            "description": "--no-hooks",
+            "type": "string"
+          },
+          "wait": {
+            "description": "--wait",
+            "type": "string"
+          },
+          "devel": {
+            "description": "--false",
+            "type": "string"
+          },
+          "description": {
+            "description": "--description",
+            "type": "string"
+          },
+          "atomic": {
+            "description": "--atomic",
+            "type": "string"
+          },
+          "skip_crds": {
+            "description": "--skip-crds",
+            "type": "string"
+          },
+          "sub_notes": {
+            "description": "--render-subchart-notes",
+            "type": "string"
+          },
+          "create_namespace": {
+            "description": "--create-namespace",
+            "type": "string"
+          },
+          "dependency_update": {
+            "description": "--dependency-update",
+            "type": "string"
+          },
+          "values": {
+            "description": "--values",
+            "type": "string"
+          },
+          "set": {
+            "description": "--set",
+            "type": "string"
+          },
+          "set_string": {
+            "description": "--set-string",
+            "type": "string"
+          }
+        }
+      },
+      "UpgradeReleaseBody": {
+        "type": "object",
+        "properties": {
+          "dry_run": {
+            "description": "--dry-run",
+            "type": "string"
+          },
+          "disable_hooks": {
+            "description": "--no-hooks",
+            "type": "string"
+          },
+          "wait": {
+            "description": "--wait",
+            "type": "string"
+          },
+          "devel": {
+            "description": "--false",
+            "type": "string"
+          },
+          "description": {
+            "description": "--description",
+            "type": "string"
+          },
+          "atomic": {
+            "description": "--atomic",
+            "type": "string"
+          },
+          "skip_crds": {
+            "description": "--skip-crds",
+            "type": "string"
+          },
+          "sub_notes": {
+            "description": "--render-subchart-notes",
+            "type": "string"
+          },
+          "force": {
+            "description": "--force",
+            "type": "string"
+          },
+          "install": {
+            "description": "--install",
+            "type": "string"
+          },
+          "recreate": {
+            "description": "--recreate",
+            "type": "string"
+          },
+          "cleanup_on_fail": {
+            "description": "--cleanup-on-fail",
+            "type": "string"
+          },
+          "values": {
+            "description": "--values",
+            "type": "string"
+          },
+          "set": {
+            "description": "--set",
+            "type": "string"
+          },
+          "set_string": {
+            "description": "--set-string",
+            "type": "string"
+          }
+        }
+      },
+      "ResponseBody": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "description": "0 is ok, 1 is error",
+            "type": "number",
+            "enum": [
+              0,
+              1
+            ]
+          },
+          "data": {
+            "description": "data",
+            "type": "object"
+          },
+          "error": {
+            "description": "error",
+            "type": "string"
           }
         }
       }
     }
   }
+}
